@@ -13,15 +13,21 @@
     
     <div class="volume-control">
       <label for="volume-slider">Volume Boost:</label>
-      <input type="range" id="volume-slider" min="100" max="300" value="100" step="10">
+      <div class="slider-container">
+        <div class="slider-progress" id="slider-progress"></div>
+        <input type="range" id="volume-slider" min="100" max="300" value="100" step="10">
+      </div>
       <span id="volume-value">100%</span>
     </div>
     
-    <div class="preset-buttons">
-      <button class="preset-btn" data-value="100">100%</button>
-      <button class="preset-btn" data-value="150">150%</button>
-      <button class="preset-btn" data-value="200">200%</button>
-      <button class="preset-btn" data-value="300">300%</button>
+    <div class="preset-container">
+      <div class="preset-label">Quick Presets:</div>
+      <div class="preset-buttons">
+        <button class="preset-btn" data-value="100">100%</button>
+        <button class="preset-btn" data-value="150">150%</button>
+        <button class="preset-btn" data-value="200">200%</button>
+        <button class="preset-btn" data-value="300">300%</button>
+      </div>
     </div>
     
     <div class="status-message" id="status"></div>

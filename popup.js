@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const volumeSlider = document.getElementById('volume-slider');
   const volumeValue = document.getElementById('volume-value');
+  const sliderProgress = document.getElementById('slider-progress');
   const presetButtons = document.querySelectorAll('.preset-btn');
   const statusMessage = document.getElementById('status');
   
@@ -9,7 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (result.volumeLevel) {
       volumeSlider.value = result.volumeLevel;
       volumeValue.textContent = result.volumeLevel + '%';
+      updateSliderProgress(result.volumeLevel);
       updateActivePreset(result.volumeLevel);
+    } else {
+      // Initialize slider progress for default value
+      updateSliderProgress(volumeSlider.value);
     }
   });
   
@@ -17,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
   volumeSlider.addEventListener('input', function() {
     const volume = this.value;
     volumeValue.textContent = volume + '%';
+    updateSliderProgress(volume);
     updateActivePreset(volume);
     applyVolumeBoost(volume);
     saveVolumeLevel(volume);
@@ -28,11 +34,20 @@ document.addEventListener('DOMContentLoaded', function() {
       const volume = this.getAttribute('data-value');
       volumeSlider.value = volume;
       volumeValue.textContent = volume + '%';
+      updateSliderProgress(volume);
       updateActivePreset(volume);
       applyVolumeBoost(volume);
       saveVolumeLevel(volume);
     });
   });
+  
+  // Update slider progress based on value
+  function updateSliderProgress(value) {
+    const min = volumeSlider.min;
+    const max = volumeSlider.max;
+    const percentage = ((value - min) / (max - min)) * 100;
+    sliderProgress.style.width = percentage + '%';
+  }
   
   // Update active preset button
   function updateActivePreset(volume) {
